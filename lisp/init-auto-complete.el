@@ -10,6 +10,8 @@
 ;;----------------------------------------------------------------------------
 (setq tab-always-indent 'complete)  ;; use 't when auto-complete is disabled
 (add-to-list 'completion-styles 'initials t)
+;; Stop completion-at-point from popping up completion buffers so eagerly
+(setq completion-cycle-threshold 5)
 
 ;; TODO: find solution for php, haskell and other modes where TAB always does something
 
@@ -21,7 +23,7 @@
   (when (and (not (minibufferp))
 	     (fboundp 'auto-complete-mode)
 	     auto-complete-mode)
-    (auto-complete)))
+    #'auto-complete))
 
 (defun sanityinc/never-indent ()
   (set (make-local-variable 'indent-line-function) (lambda () 'noindent)))
@@ -41,8 +43,7 @@
                ac-source-words-in-same-mode-buffers
                ac-source-words-in-all-buffer))
 
-(dolist (mode '(magit-log-edit-mode
-                log-edit-mode org-mode text-mode haml-mode
+(dolist (mode '(log-edit-mode org-mode text-mode haml-mode
                 git-commit-mode
                 sass-mode yaml-mode csv-mode espresso-mode haskell-mode
                 html-mode nxml-mode sh-mode smarty-mode clojure-mode
