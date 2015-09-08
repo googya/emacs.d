@@ -160,6 +160,10 @@
 (provide 'init)
 
 
+(unless (package-installed-p 'cider)
+  (package-install 'cider))
+
+
 ;; Local Variables:
 ;; coding: utf-8
 ;; no-byte-compile: 
